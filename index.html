@@ -1,0 +1,2646 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منارة الأنبياء — منصة قصص الأنبياء والمسابقات والأذكار والتسبيح</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* =====================================================================
+       نظام الألوان المشرق والدافئ (عاجي، رمال دافئة، زمردي، ذهبي كهرماني)
+       ===================================================================== */
+    :root {
+      --bg-ivory: #fdfaf3;
+      --bg-sand: #f6efe2;
+      --bg-warm-cream: #fffdf8;
+      --surface-card: #ffffff;
+      --surface-soft: #faf5ea;
+
+      --emerald-900: #064e3b;
+      --emerald-800: #065f46;
+      --emerald-700: #047857;
+      --emerald-600: #059669;
+      --emerald-100: #d1fae5;
+      --emerald-50: #ecfdf5;
+
+      --gold-600: #b45309;
+      --gold-500: #d97706;
+      --gold-400: #f59e0b;
+      --gold-200: #fde68a;
+      --gold-100: #fef3c7;
+
+      --ink-900: #1c2421;
+      --ink-700: #37453f;
+      --ink-600: #52635c;
+      --ink-500: #6f8079;
+
+      --border-light: rgba(6, 78, 59, 0.14);
+      --border-gold: rgba(217, 119, 6, 0.34);
+
+      --shadow-sm: 0 4px 14px rgba(180, 83, 9, 0.06);
+      --shadow-md: 0 12px 28px rgba(6, 78, 59, 0.09);
+      --shadow-lg: 0 20px 44px rgba(180, 83, 9, 0.13);
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --radius-xl: 30px;
+
+      --font-ui: "Cairo", "Segoe UI", Tahoma, sans-serif;
+      --font-story: "Amiri", "Traditional Arabic", Georgia, serif;
+      --story-size: 1.28rem;
+      --story-lh: 2.1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      background:
+        radial-gradient(circle at 8% 6%, rgba(245, 158, 11, 0.12), transparent 34%),
+        radial-gradient(circle at 92% 14%, rgba(5, 150, 105, 0.11), transparent 38%),
+        linear-gradient(180deg, var(--bg-ivory) 0%, var(--bg-sand) 100%);
+      color: var(--ink-900);
+      min-height: 100vh;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    .pattern-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='72' height='72' viewBox='0 0 72 72' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23065f46' stroke-width='1'%3E%3Cpolygon points='36,4 47,25 68,36 47,47 36,68 25,47 4,36 25,25'/%3E%3Ccircle cx='36' cy='36' r='10'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 0 1rem 4.5rem;
+    }
+
+    /* =====================================================================
+       الشريط العلوي واسم المستخدم المخصص
+       ===================================================================== */
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.85rem 0;
+    }
+
+    .user-greeting-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--surface-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .user-greeting-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--emerald-800);
+    }
+
+    .user-name-highlight {
+      color: var(--gold-600);
+      font-weight: 800;
+    }
+
+    .btn-pill-edit {
+      background: var(--gold-100);
+      color: var(--gold-600);
+      border: 1px solid var(--border-gold);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-pill-edit:hover {
+      background: var(--gold-400);
+      color: #ffffff;
+    }
+
+    .offline-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--emerald-50);
+      color: var(--emerald-800);
+      border: 1px solid rgba(5, 150, 105, 0.25);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald-600);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
+    }
+
+    /* =====================================================================
+       الهيدر المشرق والبطاقة التعريفية
+       ===================================================================== */
+    .hero-card {
+      background: linear-gradient(125deg, #fffdf8 0%, #f5efe1 55%, #e8f5ee 100%);
+      border: 1.5px solid var(--border-gold);
+      border-radius: var(--radius-xl);
+      padding: 2rem 1.75rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.35rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border: 1px dashed rgba(180, 83, 9, 0.25);
+      border-radius: calc(var(--radius-xl) - 9px);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--gold-100);
+      color: var(--gold-600);
+      border: 1px solid var(--border-gold);
+      padding: 0.28rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-story);
+      font-size: clamp(2rem, 4.2vw, 3rem);
+      line-height: 1.25;
+      color: var(--emerald-900);
+      font-weight: 700;
+      margin-bottom: 0.55rem;
+    }
+
+    .hero-title span {
+      color: var(--gold-600);
+    }
+
+    .hero-desc {
+      color: var(--ink-700);
+      font-size: 0.98rem;
+      max-width: 64ch;
+      margin-bottom: 1.15rem;
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.65rem;
+    }
+
+    @media (max-width: 640px) {
+      .stats-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-tile {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 0.6rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-val {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--emerald-800);
+    }
+
+    .stat-lbl {
+      font-size: 0.76rem;
+      color: var(--ink-600);
+      font-weight: 600;
+    }
+
+    .name-editor-panel {
+      background: var(--surface-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .name-editor-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--emerald-900);
+      margin-bottom: 0.4rem;
+    }
+
+    .name-editor-sub {
+      font-size: 0.82rem;
+      color: var(--ink-600);
+      margin-bottom: 0.75rem;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .text-input {
+      flex: 1;
+      padding: 0.65rem 0.9rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid #dfd3bd;
+      background: var(--bg-warm-cream);
+      color: var(--ink-900);
+      font-family: var(--font-ui);
+      font-size: 0.92rem;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: var(--gold-500);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.16);
+    }
+
+    /* =====================================================================
+       الأزرار والتنقل الرئيسي
+       ===================================================================== */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--emerald-800), var(--emerald-600));
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 1.05rem;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.62rem 1rem;
+      font-family: var(--font-ui);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .btn-gold:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    .btn-soft {
+      background: var(--surface-soft);
+      color: var(--ink-800, var(--ink-900));
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 0.9rem;
+      font-family: var(--font-ui);
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-soft:hover {
+      border-color: var(--gold-500);
+      background: var(--gold-100);
+    }
+
+    .nav-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      background: var(--surface-card);
+      padding: 0.55rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5rem;
+      position: sticky;
+      top: 0.45rem;
+      z-index: 25;
+    }
+
+    @media (max-width: 700px) {
+      .nav-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .nav-btn {
+      border: none;
+      background: transparent;
+      color: var(--ink-700);
+      font-family: var(--font-ui);
+      font-size: 0.93rem;
+      font-weight: 700;
+      padding: 0.75rem 0.65rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--bg-warm-cream);
+      color: var(--emerald-800);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, var(--emerald-800), var(--emerald-700));
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(6, 78, 59, 0.2);
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeSlide 0.3s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================================
+       قسم قصص الأنبياء: شريط البحث والتصفية والبطاقات
+       ===================================================================== */
+    .filter-box {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem;
+      margin-bottom: 1.35rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .chip {
+      border: 1px solid var(--border-light);
+      background: var(--bg-warm-cream);
+      color: var(--ink-700);
+      font-family: var(--font-ui);
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .chip:hover {
+      border-color: var(--gold-500);
+    }
+
+    .chip.active {
+      background: var(--emerald-800);
+      color: #ffffff;
+      border-color: var(--emerald-800);
+    }
+
+    .stories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .story-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+    }
+
+    .story-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-gold);
+    }
+
+    .story-thumb-wrap {
+      height: 155px;
+      background: var(--bg-warm-cream);
+      border-bottom: 1px solid var(--border-light);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .story-thumb-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .story-card-body {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      flex: 1;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge-era {
+      background: var(--emerald-50);
+      color: var(--emerald-800);
+      border: 1px solid rgba(5, 150, 105, 0.2);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .badge-done {
+      background: var(--gold-100);
+      color: var(--gold-600);
+      font-size: 0.73rem;
+      font-weight: 800;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .story-card-title {
+      font-family: var(--font-story);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--emerald-900);
+      line-height: 1.25;
+    }
+
+    .mission-box {
+      background: var(--bg-warm-cream);
+      border-right: 3.5px solid var(--gold-500);
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      color: var(--ink-700);
+    }
+
+    .mission-box strong {
+      color: var(--gold-600);
+    }
+
+    .story-card-summary {
+      font-size: 0.9rem;
+      color: var(--ink-600);
+      line-height: 1.6;
+    }
+
+    .story-card-footer {
+      padding: 0.85rem 1.2rem 1.15rem;
+      border-top: 1px dashed var(--border-light);
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    /* =====================================================================
+       نافذة قراءة القصة الكاملة (الرسالة، العلامات المهمة، الصورة، الصوت)
+       ===================================================================== */
+    .reader-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(28, 36, 33, 0.55);
+      backdrop-filter: blur(4px);
+      overflow-y: auto;
+      padding: 1.2rem;
+    }
+
+    .reader-modal.open {
+      display: block;
+    }
+
+    .reader-sheet {
+      max-width: 900px;
+      margin: 0 auto 2.5rem;
+      background: var(--bg-warm-cream);
+      border: 1.5px solid var(--border-gold);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .reader-header {
+      background: linear-gradient(135deg, var(--emerald-900), var(--emerald-700));
+      color: #ffffff;
+      padding: 1rem 1.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .reader-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .tool-btn {
+      background: rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: var(--radius-sm);
+      padding: 0.38rem 0.7rem;
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tool-btn:hover, .tool-btn.active {
+      background: var(--gold-400);
+      color: #1c2421;
+      border-color: var(--gold-200);
+    }
+
+    .reader-content {
+      padding: 1.75rem 1.5rem 2.2rem;
+    }
+
+    .mission-banner {
+      background: var(--gold-100);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem;
+      margin-bottom: 1.25rem;
+      color: var(--ink-900);
+    }
+
+    .mission-banner-title {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--gold-600);
+      margin-bottom: 0.25rem;
+    }
+
+    .ai-art-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 0.85rem;
+      margin-bottom: 1.35rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ai-art-frame {
+      height: 225px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-sand);
+    }
+
+    .ai-art-frame svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .ai-art-caption {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 0.65rem;
+      font-size: 0.82rem;
+      color: var(--ink-600);
+    }
+
+    .voice-box {
+      background: var(--emerald-50);
+      border: 1px solid rgba(5, 150, 105, 0.25);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 1.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .voice-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .prose-body {
+      font-family: var(--font-story);
+      font-size: var(--story-size);
+      line-height: var(--story-lh);
+      color: var(--ink-900);
+    }
+
+    .prose-body p {
+      margin-bottom: 1.25rem;
+      text-align: justify;
+    }
+
+    /* علامات وخطوط واضحة تحت السطور المهمة */
+    mark.important-line {
+      background: linear-gradient(to top, rgba(245, 158, 11, 0.28), rgba(254, 243, 199, 0.65));
+      color: var(--ink-900);
+      font-weight: 700;
+      padding: 0.08rem 0.25rem;
+      border-bottom: 2.5px solid var(--gold-600);
+      border-radius: 4px;
+    }
+
+    .important-tag {
+      display: inline-block;
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--gold-600);
+      background: var(--gold-100);
+      border: 1px solid var(--border-gold);
+      border-radius: 999px;
+      padding: 0.05rem 0.5rem;
+      margin-left: 0.35rem;
+      vertical-align: middle;
+    }
+
+    .prose-body.no-marks mark.important-line {
+      background: transparent;
+      border-bottom: none;
+      font-weight: inherit;
+      padding: 0;
+    }
+
+    .prose-body.no-marks .important-tag {
+      display: none;
+    }
+
+    .morals-box {
+      margin-top: 1.5rem;
+      background: var(--surface-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+    }
+
+    .morals-list {
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+      margin-top: 0.6rem;
+    }
+
+    .morals-list li {
+      padding-right: 1.25rem;
+      position: relative;
+      font-size: 0.94rem;
+      color: var(--ink-700);
+    }
+
+    .morals-list li::before {
+      content: "❖";
+      position: absolute;
+      right: 0;
+      color: var(--gold-600);
+      font-weight: bold;
+    }
+
+    /* =====================================================================
+       قسم «من سيربح المليون» والأسئلة المتجددة اللا نهائية
+       ===================================================================== */
+    .millionaire-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 0.75fr;
+      gap: 1.35rem;
+      align-items: start;
+    }
+
+    @media (max-width: 920px) {
+      .millionaire-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .game-card {
+      background: var(--surface-card);
+      border: 1.5px solid var(--border-gold);
+      border-radius: var(--radius-xl);
+      padding: 1.6rem 1.4rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .game-top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+      margin-bottom: 1.15rem;
+      border-bottom: 1px dashed var(--border-light);
+    }
+
+    .lifelines-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .lifeline-btn {
+      background: var(--gold-100);
+      color: var(--gold-600);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      padding: 0.45rem 0.85rem;
+      font-family: var(--font-ui);
+      font-size: 0.84rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lifeline-btn:hover:not(:disabled) {
+      background: var(--gold-500);
+      color: #ffffff;
+    }
+
+    .lifeline-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    .question-box {
+      background: linear-gradient(135deg, #fffdf8, #f7f0e1);
+      border: 1.5px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .question-text {
+      font-family: var(--font-story);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--emerald-900);
+      line-height: 1.55;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
+    }
+
+    @media (max-width: 640px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option-btn {
+      text-align: right;
+      background: var(--bg-warm-cream);
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      font-family: var(--font-ui);
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--ink-900);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--emerald-700);
+      background: var(--emerald-50);
+    }
+
+    .option-btn.correct {
+      background: var(--emerald-100);
+      border-color: var(--emerald-700);
+      color: var(--emerald-900);
+    }
+
+    .option-btn.wrong {
+      background: #fee2e2;
+      border-color: #dc2626;
+      color: #991b1b;
+    }
+
+    .option-btn.eliminated {
+      opacity: 0.28;
+      pointer-events: none;
+    }
+
+    .explanation-box {
+      background: var(--emerald-50);
+      border: 1px solid rgba(5, 150, 105, 0.28);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem;
+      margin-bottom: 1rem;
+      font-size: 0.92rem;
+      color: var(--ink-900);
+    }
+
+    .ladder-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ladder-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 0.38rem;
+      margin-top: 0.75rem;
+    }
+
+    .ladder-step {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.45rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-warm-cream);
+      border: 1px solid transparent;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ink-700);
+    }
+
+    .ladder-step.current {
+      background: var(--gold-100);
+      border-color: var(--gold-500);
+      color: var(--gold-600);
+    }
+
+    .ladder-step.reached {
+      background: var(--emerald-50);
+      color: var(--emerald-800);
+    }
+
+    /* =====================================================================
+       قسم الأذكار والمسبحة المتكاملة
+       ===================================================================== */
+    .adhkar-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 0.95rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .adhkar-text {
+      font-family: var(--font-story);
+      font-size: 1.38rem;
+      line-height: 1.95;
+      color: var(--ink-900);
+      margin-bottom: 0.75rem;
+    }
+
+    .adhkar-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      padding-top: 0.65rem;
+      border-top: 1px dashed var(--border-light);
+    }
+
+    .tasbih-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.35rem;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .tasbih-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tasbih-panel {
+      background: var(--surface-card);
+      border: 1.5px solid var(--border-gold);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem 1.35rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .tasbih-circle-btn {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      border: 6px solid var(--gold-400);
+      background: linear-gradient(145deg, var(--emerald-700), var(--emerald-900));
+      color: #ffffff;
+      box-shadow: 0 14px 30px rgba(6, 78, 59, 0.24);
+      cursor: pointer;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      margin: 1rem auto;
+      transition: transform 0.1s ease;
+    }
+
+    .tasbih-circle-btn:active {
+      transform: scale(0.95);
+    }
+
+    .tasbih-num {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--gold-200);
+      line-height: 1.05;
+    }
+
+    .dhikr-list-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 1.35rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dhikr-choice {
+      width: 100%;
+      text-align: right;
+      background: var(--bg-warm-cream);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.8rem 0.95rem;
+      margin-bottom: 0.55rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      font-family: var(--font-ui);
+      transition: all 0.2s ease;
+    }
+
+    .dhikr-choice.active {
+      background: var(--emerald-50);
+      border-color: var(--emerald-700);
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 1.2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(110px);
+      background: var(--emerald-900);
+      color: #ffffff;
+      border: 1.5px solid var(--gold-400);
+      padding: 0.65rem 1.3rem;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      z-index: 95;
+      opacity: 0;
+      transition: all 0.28s ease;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: var(--ink-600);
+      font-size: 0.86rem;
+      padding: 1.25rem;
+      border-top: 1px solid var(--border-light);
+    }
+  </style>
+</head>
+<body>
+  <div class="pattern-overlay" aria-hidden="true"></div>
+
+  <div class="container">
+    <!-- الشريط العلوي والتحية الشخصية -->
+    <div class="top-bar">
+      <div class="user-greeting-box">
+        <span class="user-greeting-text">
+          مرحباً بك، <span class="user-name-highlight" id="headerUserName">المهندس احمد شعبان</span>
+        </span>
+        <button type="button" class="btn-pill-edit" id="focusNameBtn">تعديل الاسم</button>
+      </div>
+
+      <div class="offline-badge" id="offlineStatusBadge">
+        <span class="status-dot"></span>
+        <span id="offlineStatusText">جاهز للعمل بدون إنترنت — حفظ محلي تلقائي</span>
+      </div>
+    </div>
+
+    <!-- الهيدر المشرق وتخصيص الاسم -->
+    <header class="hero-card">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-kicker">✦ منصة إسلامية متكاملة • ألوان مشرقة • تعمل أوفلاين</div>
+          <h1 class="hero-title">منارة <span>الأنبياء</span> والعلوم الشرعية</h1>
+          <p class="hero-desc">
+            أهلاً بك يا <strong id="heroUserName">المهندس احمد شعبان</strong> في منصتك الشاملة: قصص الأنبياء كاملة مع <strong>الرسالة الموكلة</strong>، و<strong>علامات وخطوط تحت السطور المهمة</strong>، و<strong>لوحات فنية لكل قصة</strong>، و<strong>صوت يشرح القصة</strong>، ومسابقة «من سيربح المليون» بأسئلة متجددة لا نهائية ودرجاتك باسمك، وأذكار الصباح والمساء والمسبحة.
+          </p>
+
+          <div class="stats-strip">
+            <div class="stat-tile">
+              <div class="stat-val" id="statStoriesTotal">16</div>
+              <div class="stat-lbl">قصة نبي ورسول</div>
+            </div>
+            <div class="stat-tile">
+              <div class="stat-val" id="statStoriesRead">0</div>
+              <div class="stat-lbl">قصص مقروءة</div>
+            </div>
+            <div class="stat-tile">
+              <div class="stat-val" id="statQuizBest">0</div>
+              <div class="stat-lbl">أعلى درجة محققة</div>
+            </div>
+            <div class="stat-tile">
+              <div class="stat-val" id="statTasbihTotal">0</div>
+              <div class="stat-lbl">إجمالي التسبيح</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="name-editor-panel">
+          <div class="name-editor-title">👤 تخصيص اسم المتسابق والقارئ</div>
+          <p class="name-editor-sub">
+            يظهر اسمك في الشهادات والدرجات ومسابقات «من سيربح المليون» ويُحفظ محلياً على جهازك.
+          </p>
+          <div class="input-group">
+            <input
+              type="text"
+              id="userNameInput"
+              class="text-input"
+              placeholder="اكتب اسمك هنا..."
+              aria-label="تعديل اسم المستخدم"
+            />
+            <button type="button" class="btn-gold" id="saveUserNameBtn">حفظ الاسم</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- التنقل بين الأقسام -->
+    <nav class="nav-bar" aria-label="أقسام المنصة">
+      <button type="button" class="nav-btn active" data-tab="stories">
+        <span>📖</span>
+        <span>قصص الأنبياء</span>
+      </button>
+      <button type="button" class="nav-btn" data-tab="millionaire">
+        <span>🏆</span>
+        <span>من سيربح المليون</span>
+      </button>
+      <button type="button" class="nav-btn" data-tab="adhkar">
+        <span>🌅</span>
+        <span>أذكار الصباح والمساء</span>
+      </button>
+      <button type="button" class="nav-btn" data-tab="tasbih">
+        <span>📿</span>
+        <span>المسبحة المتكاملة</span>
+      </button>
+    </nav>
+
+    <!-- ===================================================================
+         القسم 1: قصص الأنبياء والمرسلين
+         =================================================================== -->
+    <section id="tab-stories" class="tab-panel active" aria-label="قصص الأنبياء">
+      <div class="filter-box">
+        <div class="input-group">
+          <input
+            type="search"
+            id="storySearchInput"
+            class="text-input"
+            placeholder="ابحث باسم النبي، أو الرسالة، أو المعجزة، أو العبرة..."
+            aria-label="البحث في قصص الأنبياء"
+          />
+        </div>
+        <div class="filter-chips" id="eraFilterChips">
+          <button type="button" class="chip active" data-era="all">جميع القصص</button>
+          <button type="button" class="chip" data-era="الأنبياء الأوائل">الأنبياء الأوائل</button>
+          <button type="button" class="chip" data-era="أبو الأنبياء وذريته">أبو الأنبياء وذريته</button>
+          <button type="button" class="chip" data-era="أنبياء بني إسرائيل">أنبياء بني إسرائيل</button>
+          <button type="button" class="chip" data-era="خاتم الأنبياء">خاتم الأنبياء</button>
+        </div>
+      </div>
+
+      <div class="stories-grid" id="storiesGrid"></div>
+    </section>
+
+    <!-- ===================================================================
+         القسم 2: من سيربح المليون — أسئلة لا نهائية ودرجات
+         =================================================================== -->
+    <section id="tab-millionaire" class="tab-panel" aria-label="من سيربح المليون">
+      <div class="millionaire-layout">
+        <div class="game-card">
+          <div class="game-top-bar">
+            <div>
+              <div style="font-size:1.1rem; font-weight:800; color:var(--emerald-900);">
+                🏆 مسابقة من سيربح المليون — قصص الأنبياء
+              </div>
+              <div style="font-size:0.86rem; color:var(--ink-600);">
+                المتسابق: <strong style="color:var(--gold-600);" id="quizPlayerName">المهندس احمد شعبان</strong> •
+                الرصيد الحالي: <strong style="color:var(--emerald-800);" id="quizCurrentScore">0</strong> نقطة
+              </div>
+            </div>
+            <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
+              <button type="button" class="btn-soft" id="restartGameBtn">↻ جولة جديدة</button>
+              <button type="button" class="btn-gold" id="nextUnlimitedBtn">⚡ سؤال لا نهائي جديد</button>
+            </div>
+          </div>
+
+          <!-- وسائل المساعدة -->
+          <div class="lifelines-row">
+            <button type="button" class="lifeline-btn" id="lifeline5050Btn">✂️ حذف إجابتين (50:50)</button>
+            <button type="button" class="lifeline-btn" id="lifelineHintBtn">💡 تلميح من القصة</button>
+            <button type="button" class="lifeline-btn" id="lifelineSkipBtn">⏭️ استبدال السؤال</button>
+          </div>
+
+          <div class="question-box">
+            <div style="display:flex; justify-content:space-between; gap:0.5rem; margin-bottom:0.45rem; font-size:0.82rem; font-weight:700; color:var(--gold-600);">
+              <span id="questionLevelBadge">الدرجة 1 من 15</span>
+              <span id="questionPoolCounter">تم الإجابة على: 0 سؤال</span>
+            </div>
+            <p class="question-text" id="questionText"></p>
+          </div>
+
+          <div class="options-grid" id="optionsGrid"></div>
+
+          <div class="explanation-box" id="questionExplanation" style="display:none;"></div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span style="font-size:0.84rem; color:var(--ink-600);" id="questionStatusHint">
+              اختر الإجابة الصحيحة للارتقاء في سلم الدرجات.
+            </span>
+            <button type="button" class="btn-primary" id="nextStepBtn" style="display:none;">
+              الانتقال للدرجة التالية ←
+            </button>
+          </div>
+        </div>
+
+        <!-- سلم الدرجات -->
+        <aside class="ladder-card">
+          <div style="font-size:1rem; font-weight:800; color:var(--emerald-900);">
+            📊 سلم الدرجات والنقاط
+          </div>
+          <p style="font-size:0.8rem; color:var(--ink-600); margin-top:0.2rem;">
+            كل درجة تمنحك نقاطاً متصاعدة حتى المليون الرمزي.
+          </p>
+          <ul class="ladder-list" id="ladderList"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         القسم 3: أذكار الصباح والمساء
+         =================================================================== -->
+    <section id="tab-adhkar" class="tab-panel" aria-label="أذكار الصباح والمساء">
+      <div class="filter-box">
+        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.65rem;">
+          <div style="display:flex; gap:0.5rem;">
+            <button type="button" class="chip active" id="btnMorningPeriod">☀️ أذكار الصباح</button>
+            <button type="button" class="chip" id="btnEveningPeriod">🌙 أذكار المساء</button>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button type="button" class="btn-soft" id="speakAdhkarBtn">🔊 قراءة الذكر الأول صوتياً</button>
+            <button type="button" class="btn-soft" id="stopAdhkarVoiceBtn">⏹ إيقاف الصوت</button>
+            <button type="button" class="btn-soft" id="resetAdhkarBtn">↺ تصفير عدادات الفترة</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="adhkarListContainer"></div>
+    </section>
+
+    <!-- ===================================================================
+         القسم 4: المسبحة المتكاملة
+         =================================================================== -->
+    <section id="tab-tasbih" class="tab-panel" aria-label="المسبحة المتكاملة">
+      <div class="tasbih-grid">
+        <div class="tasbih-panel">
+          <div style="font-family:var(--font-story); font-size:1.85rem; font-weight:700; color:var(--emerald-900); margin-bottom:0.35rem;" id="activeDhikrTitle">
+            سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
+          </div>
+          <p style="font-size:0.88rem; color:var(--ink-600); margin-bottom:1rem;" id="activeDhikrNote">
+            من قالها مائة مرة حين يصبح وحين يمسي حُطّت خطاياه وإن كانت مثل زبد البحر.
+          </p>
+
+          <div class="filter-chips" style="justify-content:center; margin-bottom:0.5rem;" id="targetPresets">
+            <button type="button" class="chip active" data-target="33">دورة 33</button>
+            <button type="button" class="chip" data-target="100">دورة 100</button>
+            <button type="button" class="chip" data-target="0">عداد مفتوح</button>
+          </div>
+
+          <button type="button" class="tasbih-circle-btn" id="tasbihTapBtn" aria-label="اضغط للتسبيح">
+            <span class="tasbih-num" id="tasbihCountDisplay">0</span>
+            <span style="font-size:0.84rem; color:#ecfdf5; font-weight:700;" id="tasbihTargetDisplay">من 33</span>
+            <span style="font-size:0.75rem; color:var(--gold-200); margin-top:0.2rem;">اضغط هنا للتسبيح</span>
+          </button>
+
+          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem; margin-top:0.5rem;">
+            <button type="button" class="btn-soft" id="toggleSoundBtn">🔊 الصوت: مفعل</button>
+            <button type="button" class="btn-soft" id="toggleVibrateBtn">📳 الاهتزاز: مفعل</button>
+            <button type="button" class="btn-soft" id="resetTasbihBtn">↺ تصفير العداد</button>
+          </div>
+        </div>
+
+        <div class="dhikr-list-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.6rem;">
+            <span style="font-size:1.05rem; font-weight:800; color:var(--emerald-900);">قائمة التسبيحات</span>
+            <span class="badge-done" id="tasbihRoundsBadge">الدورات المكتملة: 0</span>
+          </div>
+          <p style="font-size:0.84rem; color:var(--ink-600); margin-bottom:0.85rem;">
+            اختر أي ذكر لتسبيحه وحفظ عداده المستقل تلقائياً على جهازك.
+          </p>
+          <div id="dhikrChoicesContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <strong>منارة الأنبياء</strong> — منصة إسلامية شاملة تعمل بدون إنترنت • صلوات الله وسلامه على أنبيائه ورسله أجمعين.
+    </footer>
+  </div>
+
+  <!-- =====================================================================
+       نافذة قراءة القصة الكاملة
+       ===================================================================== -->
+  <div class="reader-modal" id="readerModal" role="dialog" aria-modal="true" aria-labelledby="readerStoryTitle">
+    <div class="reader-sheet">
+      <div class="reader-header">
+        <button type="button" class="tool-btn" id="closeReaderBtn">✕ إغلاق</button>
+        <div class="reader-toolbar">
+          <button type="button" class="tool-btn" id="fontSmallerBtn">أ-</button>
+          <button type="button" class="tool-btn" id="fontLargerBtn">أ+</button>
+          <button type="button" class="tool-btn active" id="toggleMarksBtn">✦ علامات السطور المهمة</button>
+          <button type="button" class="tool-btn" id="cycleArtSceneBtn">🎨 تبديل المشهد الفني</button>
+        </div>
+      </div>
+
+      <div class="reader-content">
+        <div class="card-meta-row" style="margin-bottom:0.65rem;">
+          <span class="badge-era" id="readerEraBadge">الفترة</span>
+          <span class="badge-done" id="readerRefBadge">المصدر القرآني</span>
+        </div>
+        <h2 style="font-family:var(--font-story); font-size:2.15rem; color:var(--emerald-900); margin-bottom:0.75rem;" id="readerStoryTitle"></h2>
+
+        <!-- الرسالة الموكلة للنبي -->
+        <div class="mission-banner">
+          <div class="mission-banner-title">📜 الرسالة الموكلة إليه ودعوته</div>
+          <div id="readerMissionText" style="font-size:0.95rem; font-weight:600;"></div>
+        </div>
+
+        <!-- صورة فنية مولّدة لكل قصة -->
+        <div class="ai-art-card">
+          <div class="ai-art-frame" id="readerArtFrame"></div>
+          <div class="ai-art-caption">
+            <span id="readerArtCaptionText">لوحة فنية مستوحاة من القصة (تعمل بدون إنترنت)</span>
+            <span style="font-weight:700; color:var(--gold-600);">فن إسلامي مشرق</span>
+          </div>
+        </div>
+
+        <!-- مشغل الصوت لشرح القصة -->
+        <div class="voice-box">
+          <div>
+            <div style="font-size:0.9rem; font-weight:800; color:var(--emerald-900);">
+              🎙️ الراوي الصوتي لشرح القصة
+            </div>
+            <div style="font-size:0.8rem; color:var(--ink-600);" id="voiceStatusText">
+              جاهز للاستماع إلى شرح القصة بصوت المتصفح (يدعم العربية عند توفر صوت عربي على الجهاز).
+            </div>
+          </div>
+          <div class="voice-controls">
+            <button type="button" class="btn-primary" id="playStoryVoiceBtn">▶ استماع للقصة</button>
+            <button type="button" class="btn-soft" id="pauseResumeVoiceBtn">⏸ إيقاف مؤقت</button>
+            <button type="button" class="btn-soft" id="stopStoryVoiceBtn">⏹ إيقاف</button>
+            <select id="voiceRateSelect" class="text-input" style="padding:0.42rem 0.6rem; width:auto; font-size:0.82rem;" aria-label="سرعة القراءة الصوتية">
+              <option value="0.85">سرعة هادئة (0.85x)</option>
+              <option value="1" selected>سرعة طبيعية (1.0x)</option>
+              <option value="1.15">سرعة أسرع (1.15x)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- نص القصة مع علامات وخطوط تحت السطور المهمة -->
+        <div class="prose-body" id="readerProseBody"></div>
+
+        <!-- الدروس والعبر -->
+        <div class="morals-box">
+          <div style="font-size:1rem; font-weight:800; color:var(--emerald-900);">
+            ✦ أبرز الدروس والعبر من القصة
+          </div>
+          <ul class="morals-list" id="readerMoralsList"></ul>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:0.75rem; margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border-light);">
+          <button type="button" class="btn-soft" id="prevStoryModalBtn">→ القصة السابقة</button>
+          <button type="button" class="btn-primary" id="completeStoryModalBtn">✓ تم إتمام قراءة القصة</button>
+          <button type="button" class="btn-soft" id="nextStoryModalBtn">القصة التالية ←</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-msg" id="toastMsg" role="status" aria-live="polite"></div>
+
+  <script>
+    /* =====================================================================
+       بيانات قصص الأنبياء: الرسالة الموكلة، السطور المهمة المعلّمة، والعبر
+       ===================================================================== */
+    const STORIES_DATA = [
+      {
+        id: "adam",
+        name: "آدم عليه السلام",
+        era: "الأنبياء الأوائل",
+        quranRef: "سورة البقرة (30–39) • الأعراف (11–25)",
+        mission: "أول البشر وخليفة الله في الأرض؛ بُعث ببيان التوحيد والعبودية لله وتأسيس عمارة الأرض والتوبة إليه.",
+        summary: "خلقه الله بيديه ونفخ فيه من روحه وعلّمه الأسماء كلها، ثم كانت قصة الجنة والرجوع إلى الله بالتوبة الصادقة.",
+        palette: ["#fef3c7", "#d1fae5", "#047857", "#d97706"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">بدأ الله خلق الإنسان بأبي البشر آدم عليه السلام، فخلقه بيده الكريمة وسوّاه ونفخ فيه من روحه</mark>، وأمر الملائكة بالسجود له تكريماً وتشريفاً.",
+          "وأكرمه الله بتعليم الأسماء كلها فظهر فضل العلم والبيان، وأسكنه وزوجه الجنة وحذّرهما من شجرة بعينها، فوسوس الشيطان وأهبطا إلى الأرض لحكمة إلهية عظيمة.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">فتلقى آدم من ربه كلمات فتاب عليه إنّه هو التواب الرحيم</mark>؛ فكانت توبته مدرسةً لكل مخطئ أن باب الرحمة مفتوح."
+        ],
+        lessons: [
+          "التوبة النصوح والرجوع الفوري إلى الله يرفعان قدر العبد.",
+          "العلم من أعظم أسباب التكريم الإلهي."
+        ]
+      },
+      {
+        id: "nuh",
+        name: "نوح عليه السلام",
+        era: "الأنبياء الأوائل",
+        quranRef: "سورة نوح • سورة هود (25–49)",
+        mission: "أول الرسل إلى أهل الأرض؛ أُرسل لدعوة قومه إلى عبادة الله وحده وترك عبادة الأوثان وتحذيرهم من عذاب الله.",
+        summary: "دعا قومه تسعمائة وخمسين عاماً بصبر عجيب، وصنع السفينة بأمر الله فنجّاه الله ومن آمن معه.",
+        palette: ["#e0f2fe", "#d1fae5", "#065f46", "#d97706"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">أرسل الله نوحاً أول رسول إلى أهل الأرض فدعا قومه ألف سنة إلا خمسين عاماً</mark> ليلاً ونهاراً وسراً وجهاراً.",
+          "قابل قومه دعوته بالاستكبار والسخرية، فصبر وصابر ودعا ربه بقلب متوكل، فأمره الله بصناعة السفينة بأعينه ووحيه.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">فنجّى الله نوحاً ومن آمن معه في الفلك المشحون</mark>، وأهلك المكذبين بالطوفان العظيم."
+        ],
+        lessons: [
+          "الثبات على الدعوة والحق لا يرتبط بكثرة الأتباع أو طول الزمن.",
+          "النجاة بالإيمان والعمل الصالح لا بمجرد القرابة."
+        ]
+      },
+      {
+        id: "hud",
+        name: "هود عليه السلام",
+        era: "الأنبياء الأوائل",
+        quranRef: "سورة هود (50–60) • الأحقاف (21–26)",
+        mission: "رسول الله إلى قوم عاد؛ أُرسل لتذكيرهم بنعم الله ودعوتهم للتوحيد والاستغفار وترك الطغيان والغرور بالقوة.",
+        summary: "نبّه قوم عاد أصحاب القوة والبنيان أن العزة لله وحده، وأن الاستغفار يجلب الخير والبركة.",
+        palette: ["#fef9c3", "#fed7aa", "#b45309", "#047857"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">بعث الله هوداً إلى قوم عاد أصحاب القوة والبنيان فدعاهم إلى توحيد الله وشكر نعمته</mark>.",
+          "وبيّن لهم أن الاستغفار والتوبة يزيدان القوة قوةً وخيراً، لكنهم اغتروا بقوتهم وكذّبوا نبيهم.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">فأرسل الله عليهم ريحاً صرصراً عاتية ونجّى هوداً والذين آمنوا معه برحمة منه</mark>."
+        ],
+        lessons: [
+          "القوة المادية لا تغني عن الإيمان وطاعة الله.",
+          "الاستغفار سبب للبركة وتجدد القوة."
+        ]
+      },
+      {
+        id: "salih",
+        name: "صالح عليه السلام",
+        era: "الأنبياء الأوائل",
+        quranRef: "سورة هود (61–68) • الأعراف (73–79)",
+        mission: "نبي الله إلى ثمود؛ دُعي إلى أمرهم بعبادة الله وحده وإصلاح الأرض والوفاء بحق الآية الإلهية (الناقة).",
+        summary: "أخرج الله لقوم ثمود ناقة آيةً بيّنة، فلما عقروها وطغوا جاءهم العذاب ونجّى الله صالحاً والمؤمنين.",
+        palette: ["#ecfdf5", "#fef3c7", "#047857", "#d97706"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">دعا صالح قوم ثمود إلى عبادة الله وحده وعمارة الأرض بالإصلاح لا بالإفساد</mark>.",
+          "وطلبوا آيةً فجعل الله لهم الناقة معجزة ظاهرة وحدد لها شرباً ولهم شرب يوم معلوم.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">فعقروا الناقة وعتوا عن أمر ربهم فأخذتهم الصيحة ونجا صالح والمؤمنون</mark>."
+        ],
+        lessons: [
+          "الاعتداء على حرمات الله وآياته يعرّض للعقوبة.",
+          "التواضع أمام الحق أنفع من العناد."
+        ]
+      },
+      {
+        id: "ibrahim",
+        name: "إبراهيم عليه السلام",
+        era: "أبو الأنبياء وذريته",
+        quranRef: "سورة البقرة (124–132) • الأنبياء (51–71)",
+        mission: "خليل الرحمن وأبو الأنبياء؛ بُعث بتجديد الحنيفية والتوحيد الخالص وإبطال عبادة الأصنام وإقامة شعائر البيت الحرام.",
+        summary: "حاجّ قومه بالبرهان، وأُلقي في النار فجعلها الله برداً وسلاماً، وبنى الكعبة مع ابنه إسماعيل.",
+        palette: ["#fef3c7", "#ffedd5", "#b45309", "#065f46"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">حاجّ إبراهيم قومه بالحجة الواضحة وكسّر الأصنام ليبين بطلان الشرك</mark>.",
+          "ولما أوقدوا له ناراً عظيمة وألقوه فيها، تدخلت القدرة الإلهية فقلبت طبيعة النار لتكون برداً وسلاماً.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">ورفع إبراهيم وإسماعيل القواعد من البيت الحرام</mark> ودعوا الله بالهداية والرزق والسكينة."
+        ],
+        lessons: [
+          "الحجة والبرهان الواضح سلاح قوي في بيان الحق.",
+          "إذا حفظ الله عبده جعل النار برداً وسلاماً."
+        ]
+      },
+      {
+        id: "lut",
+        name: "لوط عليه السلام",
+        era: "أبو الأنبياء وذريته",
+        quranRef: "سورة هود (77–83) • الحجر (57–77)",
+        mission: "نبي الله إلى قوم سدوم؛ أُرسل للأمر بالعفة وتقوى الله والنهي عن الفواحش وقطع السبيل والفساد الاجتماعي.",
+        summary: "ثبت على النصح والإنكار في بيئة فاسدة، فنجّاه الله مع أهله إلا امرأته، وأهلك الظالمين.",
+        palette: ["#f0fdf4", "#fef9c3", "#047857", "#d97706"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">أُرسل لوط إلى قوم غرقوا في الفواحش والمنكرات فدعاهم إلى العفة وتقوى الله</mark>.",
+          "ولما جاءت الملائكة ضيوفاً كراماً طمأنوه وأمروه أن يخرج بأهله بليل.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">فنجا لوط ومن آمن معه وهلك المكذبون</mark> بعذاب أليم."
+        ],
+        lessons: [
+          "الأمر بالمعروف والنهي عن المنكر صمام أمان للمجتمع.",
+          "الإيمان والعمل الصالح هما سبيل النجاة."
+        ]
+      },
+      {
+        id: "ismail",
+        name: "إسماعيل عليه السلام",
+        era: "أبو الأنبياء وذريته",
+        quranRef: "سورة الصافات (99–111) • مريم (54–55)",
+        mission: "نبي صابر صادق الوعد؛ أُرسل إلى من حول مكة بدعوة التوحيد وإقامة الصلاة والزكاة والمشاركة في بناء الكعبة.",
+        summary: "نشأ عند زمزم مع أمه هاجر، وسلّم لأمر الله في الرؤيا بامتثال عظيم، ففداه الله بذبح عظيم.",
+        palette: ["#fef3c7", "#d1fae5", "#047857", "#d97706"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">نشأ إسماعيل في مكة وبارك الله لهما بزمزم</mark> فكانت سقيا وبركة.",
+          "ولما عرض عليه أبوه رؤيا الذبح أجاب بإيمان ورضى: سأكون من الصابرين إن شاء الله.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">ففداه الله بذبح عظيم وشاركه أباه في رفع قواعد الكعبة</mark>."
+        ],
+        lessons: [
+          "التسليم لأمر الله يثمر الفداء والفرج.",
+          "برّ الوالدين والطاعة في المعروف من شيم الأنبياء."
+        ]
+      },
+      {
+        id: "yaqub",
+        name: "يعقوب عليه السلام",
+        era: "أبو الأنبياء وذريته",
+        quranRef: "سورة البقرة (132–140) • سورة يوسف",
+        mission: "نبي الله من ذرية إبراهيم؛ رسالته تأكيد التوحيد والوصية بالثبات على الإسلام وتزكية النفوس والعدل.",
+        summary: "أوصى بنيه بالإسلام عند الممات، وصبر على فراق يوسف وبنيامين صبراً جميلاً حتى جمع الله شمله بهم.",
+        palette: ["#fffbeb", "#ecfdf5", "#065f46", "#d97706"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">جمع يعقوب بنيه وأوصاهم بالثبات على توحيد الله والإسلام</mark>.",
+          "ابتُلي بفقد يوسف ثم بنيامين فصبر صبراً جميلاً لا شكوى فيه لغير الله ولا قنوط من رحمته.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">فجمع الله شمله بأبنائه وردّ إليه بصره وبشيرته</mark>."
+        ],
+        lessons: [
+          "الصبر الجميل يجمع بين الثبات وحسن الظن بالله.",
+          "الوصية بالإيمان للأبناء أعظم ميراث."
+        ]
+      },
+      {
+        id: "yusuf",
+        name: "يوسف عليه السلام",
+        era: "أبو الأنبياء وذريته",
+        quranRef: "سورة يوسف (كاملة)",
+        mission: "نبي صدّيق؛ رسالته دعوة أهل مصر إلى التوحيد وترك عبادة الأرباب المتفرقة وتحقيق العدل والأمانة في إدارة شؤون الناس.",
+        summary: "صبر على كيد إخوته وعفّ في السجن وخارجه، ومكّنه الله في الأرض فعفا وصفح عن إخوته.",
+        palette: ["#fef3c7", "#e0f2fe", "#047857", "#b45309"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">ألقاه إخوته في الجب فحفظه الله ومكّن له في مصر</mark> ليصل إلى رفعة وحكمة.",
+          "استعصم بالله وصبر على ظلم السجن ودعا رفقاءه إلى التوحيد وعبادة الواحد القهار.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">وعفا يوسف عن إخوته وقال: لا تثريب عليكم اليوم يغفر الله لكم</mark>."
+        ],
+        lessons: [
+          "العفة والأمانة طريق التمكين.",
+          "العفو عند المقدرة يداوي النفوس."
+        ]
+      },
+      {
+        id: "ayyub",
+        name: "أيوب عليه السلام",
+        era: "أبو الأنبياء وذريته",
+        quranRef: "سورة الأنبياء (83–84) • سورة ص (41–44)",
+        mission: "نبي أوّاب صابر؛ بُعث لدعوة قومه إلى التوحيد والإنابة إلى الله وتجسيد معنى الصبر والافتقار إليه في الشدائد.",
+        summary: "ابتُلي في جسده وماله وولده فصبر ولم يجزع، ثم نادى ربه فكشف الله ضره وأعاد إليه نعمه.",
+        palette: ["#f0fdf4", "#fef3c7", "#047857", "#d97706"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">ابتُلي أيوب بلاءً شديداً فصبر وصابر ولم يشكُ ربه</mark>.",
+          "نادى ربه بصدق وافتقار: إنّي مسّني الضر وأنت أرحم الراحمين.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">فاستجاب الله له وكشف ضره وآتاه أهله ومثلهم معهم</mark>."
+        ],
+        lessons: [
+          "الافتقار إلى الله مع الصبر يفتح أبواب الفرج.",
+          "رحمة الله أوسع من كل بلاء."
+        ]
+      },
+      {
+        id: "shuaib",
+        name: "شعيب عليه السلام",
+        era: "أبو الأنبياء وذريته",
+        quranRef: "سورة هود (84–95) • الأعراف (85–93)",
+        mission: "نبي أهل مدين؛ أُرسل لدعوتهم إلى توحيد الله وإقامة العدل في الكيل والميزان ومنع بخس الناس حقوقهم.",
+        summary: "جمع بين الدعوة إلى التوحيد والإصلاح المالي والأخلاقي، فنجّاه الله والمؤمنين وأهلك الظالمين.",
+        palette: ["#fffbeb", "#ecfdf5", "#047857", "#b45309"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">دعا شعيب قوم مدين إلى عبادة الله وحده والوفاء بالكيل والميزان بالقسط</mark>.",
+          "نهاهم عن بخس الناس أشياءهم والإفساد في الأرض بعد إصلاحها.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">فنجّى الله شعيباً والذين آمنوا معه</mark> وأخذ المكذبين العذاب."
+        ],
+        lessons: [
+          "العدل في المعاملات المالية ركن مهم في صلاح المجتمع.",
+          "الإصلاح الشامل يبدأ بتوحيد الله."
+        ]
+      },
+      {
+        id: "musa",
+        name: "موسى عليه السلام",
+        era: "أنبياء بني إسرائيل",
+        quranRef: "سورة طه • سورة القصص • الشعراء",
+        mission: "كليم الله إلى فرعون وبني إسرائيل؛ أُرسل لدعوة فرعون إلى عبادة الله وإخراج بني إسرائيل من الاستعباد وإقامة الشريعة.",
+        summary: "حفظه الله في اليم، وكلّمه في الطور، وأيّده بالمعجزات، ونجّى بني إسرائيل وأغرق فرعون.",
+        palette: ["#e0f2fe", "#fef3c7", "#065f46", "#d97706"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">حفظ الله موسى في اليم وربّاه في بيت فرعون</mark> بحكمة وقدرة إلهية.",
+          "كلّمه الله وأرسله مع هارون إلى فرعون بالقول اللين والآيات البينات.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">ففلق الله البحر لموسى ومن معه فنجوا وأغرق فرعون وجنده</mark>."
+        ],
+        lessons: [
+          "النصر الإلهي يأتي عند اشتداد الكرب وثبات المؤمنين.",
+          "الحكمة والقول اللين أسلوب نبوي أصيل."
+        ]
+      },
+      {
+        id: "dawud",
+        name: "داود عليه السلام",
+        era: "أنبياء بني إسرائيل",
+        quranRef: "سورة ص (17–26) • سورة سبأ (10–11)",
+        mission: "نبي وملك أُوتي الزبور والحكمة؛ رسالته إقامة العدل بين الناس وتسبيح الله وتوظيف القوة والحرفية في الخير.",
+        summary: "قتل جالوت، وآتاه الله الملك والحكمة، وسخّر معه الجبال والطير للتسبيح، وألان له الحديد.",
+        palette: ["#ecfdf5", "#fef9c3", "#047857", "#b45309"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">آتى الله داود الملك والحكمة والزبور</mark> وجمعه مع النبوة والعدل.",
+          "سبّح الله فسبّحت معه الجبال والطير، وألان الله له الحديد لصناعة الدروع.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">وأُمر أن يحكم بين الناس بالحق والعدل والإنابة</mark>."
+        ],
+        lessons: [
+          "العدل في الحكم أساس الاستقرار.",
+          "العمل النافع مع ذكر الله يجمع بين الدنيا والآخرة."
+        ]
+      },
+      {
+        id: "sulayman",
+        name: "سليمان عليه السلام",
+        era: "أنبياء بني إسرائيل",
+        quranRef: "سورة النمل (15–44) • سورة سبأ (12–14)",
+        mission: "نبي وملك شاكر؛ رسالته توحيد الله ونشر الهداية حتى لملكات وأمم بعيدة مع شكر النعم والتواضع.",
+        summary: "سأل الله ملكاً عظيماً، وسُخّر له الريح والطير والجن، وهدى ملكة سبأ إلى الإسلام.",
+        palette: ["#fef3c7", "#d1fae5", "#065f46", "#d97706"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">دعا سليمان ربه بشكر النعمة والعمل الصالح وآتاه الله ملكاً واسعاً</mark>.",
+          "سُخّر له الريح والجن وعُلّم منطق الطير، وكان رحيماً متواضعاً حتى مع النمل.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">ودعا ملكة سبأ وقومها إلى التوحيد فأسلمت مع سليمان لله رب العالمين</mark>."
+        ],
+        lessons: [
+          "شكر النعم يحفظها ويزيدها.",
+          "العظمة الحقيقية تقترن بالتواضع والرحمة."
+        ]
+      },
+      {
+        id: "isa",
+        name: "عيسى عليه السلام",
+        era: "أنبياء بني إسرائيل",
+        quranRef: "سورة آل عمران (45–59) • سورة مريم (16–36)",
+        mission: "رسول الله إلى بني إسرائيل؛ بُعث بتثبيت التوحيد والرحمة والزهد وبشارة النبي الخاتم وإحياء القلوب بالهدى.",
+        summary: "وُلد بقدرة الله من غير أب، وتكلّم في المهد، وأيّده الله بالمعجزات، ورفعه الله إليه.",
+        palette: ["#f0fdf4", "#e0f2fe", "#047857", "#d97706"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">خلق الله عيسى من أم بتول بلا أب بكلمة من الله: كن فيكون</mark>.",
+          "تكلّم في المهد معلناً عبوديته لله ونبوته، وأجرى الله على يديه آيات عظيمة.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">ورفعه الله إليه وطهّره من مكر الكافرين</mark>."
+        ],
+        lessons: [
+          "عيسى عليه السلام عبد الله ورسوله، والتوحيد أساس الرسالات.",
+          "إظهار الحق في أشد المواقف آية من آيات الله."
+        ]
+      },
+      {
+        id: "muhammad",
+        name: "محمد ﷺ",
+        era: "خاتم الأنبياء",
+        quranRef: "سورة الأحزاب (40) • الأنبياء (107) • الفتح",
+        mission: "خاتم الأنبياء والمرسلين؛ أُرسل رحمة للعالمين ومتمماً لمكارم الأخلاق برسالة عامة خالدة للبشرية جمعاء.",
+        summary: "بلّغ الرسالة وأدّى الأمانة ونصح الأمة، وترك القرآن والسنة هدايةً لا تنطفئ.",
+        palette: ["#fef3c7", "#d1fae5", "#065f46", "#b45309"],
+        paragraphs: [
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">اختار الله محمداً ﷺ خاتم النبيين ورحمةً مهداةً للعالمين</mark>.",
+          "صبر على الأذى في مكة وأسس مجتمع العدل والأخوة في المدينة، وبلّغ الدين كاملاً.",
+          "<span class=\"important-tag\">نقطة مهمة</span><mark class=\"important-line\">وترك فينا كتاب الله وسنّة نبيه ﷺ هدايةً ونوراً إلى يوم الدين</mark>."
+        ],
+        lessons: [
+          "الاقتداء بالنبي ﷺ في الرحمة والصدق والأمانة والعدل فلاح في الدارين.",
+          "التمسك بالقرآن والسنة عاصم من الضلال."
+        ]
+      }
+    ];
+
+    /* =====================================================================
+       أذكار الصباح والمساء
+       ===================================================================== */
+    const ADHKAR_LIST = {
+      morning: [
+        {
+          id: "am1",
+          text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.",
+          repeat: 1,
+          source: "صحيح مسلم"
+        },
+        {
+          id: "am2",
+          text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.",
+          repeat: 1,
+          source: "سنن الترمذي"
+        },
+        {
+          id: "am3",
+          text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.",
+          repeat: 100,
+          source: "صحيح مسلم"
+        },
+        {
+          id: "am4",
+          text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ.",
+          repeat: 3,
+          source: "من أذكار الاستغفار والذكر"
+        }
+      ],
+      evening: [
+        {
+          id: "pm1",
+          text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.",
+          repeat: 1,
+          source: "صحيح مسلم"
+        },
+        {
+          id: "pm2",
+          text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.",
+          repeat: 1,
+          source: "سنن الترمذي"
+        },
+        {
+          id: "pm3",
+          text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ.",
+          repeat: 3,
+          source: "صحيح مسلم"
+        },
+        {
+          id: "pm4",
+          text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.",
+          repeat: 100,
+          source: "صحيح مسلم"
+        }
+      ]
+    };
+
+    /* =====================================================================
+       تسبيحات المسبحة
+       ===================================================================== */
+    const TASBIH_ITEMS = [
+      { id: "t1", phrase: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", note: "تُحط الخطايا وتُغرس بها نخلة في الجنة." },
+      { id: "t2", phrase: "سُبْحَانَ اللَّهِ الْعَظِيمِ", note: "كلمتان خفيفتان على اللسان ثقيلتان في الميزان." },
+      { id: "t3", phrase: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", note: "تملأ الميزان وتجمع الثناء والرضا." },
+      { id: "t4", phrase: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ", note: "أفضل الذكر وأصل التوحيد." },
+      { id: "t5", phrase: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ", note: "مفتاح المغفرة والرزق وتفريج الكرب." },
+      { id: "t6", phrase: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", note: "صلاة الله على العبد بها عشراً." }
+    ];
+
+    /* =====================================================================
+       درجات «من سيربح المليون»
+       ===================================================================== */
+    const MILLIONAIRE_LADDER = [
+      "100 نقطة", "250 نقطة", "500 نقطة", "1,000 نقطة", "2,500 نقطة",
+      "5,000 نقطة", "10,000 نقطة", "25,000 نقطة", "50,000 نقطة", "100,000 نقطة",
+      "200,000 نقطة", "350,000 نقطة", "500,000 نقطة", "750,000 نقطة", "1,000,000 (المليون)"
+    ];
+
+    /* =====================================================================
+       الحالة والتخزين المحلي
+       ===================================================================== */
+    const STORAGE_KEY = "manarat_anbiya_state_v1";
+
+    const defaultState = {
+      userName: "المهندس احمد شعبان",
+      readStories: [],
+      quizBestScore: 0,
+      tasbihCounts: {},
+      tasbihRounds: 0,
+      activeTasbihId: "t1",
+      tasbihTarget: 33,
+      soundEnabled: true,
+      vibrateEnabled: true,
+      adhkarCounts: {},
+      storyFontSize: 1.28,
+      showMarks: true,
+      artVariant: 0,
+      answeredQuestionsCount: 0
+    };
+
+    let state = loadState();
+    let currentEra = "all";
+    let currentStoryId = null;
+    let currentAdhkarPeriod = "morning";
+
+    // حالة لعبة «من سيربح المليون»
+    let gameStepIndex = 0;
+    let gameCurrentPoints = 0;
+    let currentQuestion = null;
+    let usedQuestionSignatures = new Set();
+    let lifelinesUsed = { fifty: false, hint: false, skip: false };
+    let questionAnswered = false;
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { ...defaultState };
+        return { ...defaultState, ...JSON.parse(raw) };
+      } catch (e) {
+        return { ...defaultState };
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        // تجاهل أخطاء الحفظ إن وجدت
+      }
+      refreshHeaderStats();
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById("toastMsg");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => el.classList.remove("show"), 2600);
+    }
+
+    /* =====================================================================
+       توليد لوحات فنية SVG مخصصة لكل قصة (تعمل 100% بدون إنترنت)
+       ===================================================================== */
+    function buildStoryArtSVG(story, variant = 0) {
+      const [bg1, bg2, accent1, accent2] = story.palette;
+      const shift = (variant % 3) * 28;
+      return `
+        <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="لوحة فنية لقصة ${story.name}">
+          <defs>
+            <linearGradient id="g-${story.id}-${variant}" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="${bg1}" />
+              <stop offset="55%" stop-color="${bg2}" />
+              <stop offset="100%" stop-color="#ffffff" />
+            </linearGradient>
+          </defs>
+          <rect width="600" height="240" fill="url(#g-${story.id}-${variant})" />
+          <circle cx="${480 - shift}" cy="${58 + shift * 0.4}" r="42" fill="${accent2}" opacity="0.22" />
+          <circle cx="${480 - shift}" cy="${58 + shift * 0.4}" r="26" fill="${accent2}" opacity="0.35" />
+          <!-- قوس معماري إسلامي مشرق -->
+          <path d="M 110 240 L 110 115 Q 110 42 185 42 Q 260 42 260 115 L 260 240 Z" fill="#ffffff" opacity="0.72" stroke="${accent1}" stroke-width="2.5" />
+          <path d="M 130 240 L 130 120 Q 130 62 185 62 Q 240 62 240 120 L 240 240" fill="none" stroke="${accent2}" stroke-width="1.8" stroke-dasharray="5 4" />
+          <!-- نجمة هندسية -->
+          <polygon points="185,84 195,104 217,107 201,122 205,144 185,133 165,144 169,122 153,107 175,104" fill="${accent2}" opacity="0.85" />
+          <!-- تلال وأفق مشرق -->
+          <path d="M 0 198 Q 160 156 330 190 T 600 172 L 600 240 L 0 240 Z" fill="${accent1}" opacity="0.16" />
+          <path d="M 0 214 Q 210 182 410 208 T 600 194 L 600 240 L 0 240 Z" fill="${accent1}" opacity="0.26" />
+          <!-- شريط عنوان داخل اللوحة -->
+          <rect x="285" y="102" width="280" height="84" rx="14" fill="#ffffff" opacity="0.88" stroke="${accent2}" stroke-width="1.5" />
+          <text x="545" y="134" text-anchor="start" direction="rtl" font-family="Amiri, serif" font-size="24" font-weight="700" fill="${accent1}">${story.name}</text>
+          <text x="545" y="164" text-anchor="start" direction="rtl" font-family="Cairo, sans-serif" font-size="13" font-weight="700" fill="${accent2}">${story.era}</text>
+        </svg>
+      `;
+    }
+
+    /* =====================================================================
+       تحديث الاسم والإحصائيات
+       ===================================================================== */
+    function refreshHeaderStats() {
+      document.getElementById("headerUserName").textContent = state.userName;
+      document.getElementById("heroUserName").textContent = state.userName;
+      document.getElementById("quizPlayerName").textContent = state.userName;
+      document.getElementById("userNameInput").value = state.userName;
+
+      document.getElementById("statStoriesTotal").textContent = STORIES_DATA.length;
+      document.getElementById("statStoriesRead").textContent = state.readStories.length;
+      document.getElementById("statQuizBest").textContent = Math.max(state.quizBestScore, gameCurrentPoints);
+
+      const tasbihSum = Object.values(state.tasbihCounts).reduce((a, b) => a + (Number(b) || 0), 0);
+      document.getElementById("statTasbihTotal").textContent = tasbihSum;
+    }
+
+    /* =====================================================================
+       عرض شبكة قصص الأنبياء والبحث والتصفية
+       ===================================================================== */
+    function renderStoriesGrid() {
+      const q = (document.getElementById("storySearchInput").value || "").trim().toLowerCase();
+      const grid = document.getElementById("storiesGrid");
+
+      const filtered = STORIES_DATA.filter((s) => {
+        const eraMatch = currentEra === "all" || s.era === currentEra;
+        const textMatch =
+          !q ||
+          s.name.toLowerCase().includes(q) ||
+          s.mission.toLowerCase().includes(q) ||
+          s.summary.toLowerCase().includes(q) ||
+          s.paragraphs.join(" ").toLowerCase().includes(q);
+        return eraMatch && textMatch;
+      });
+
+      if (!filtered.length) {
+        grid.innerHTML = `
+          <div style="grid-column:1/-1; background:var(--surface-card); padding:2rem; border-radius:var(--radius-lg); text-align:center; border:1px solid var(--border-light);">
+            لم يتم العثور على قصة مطابقة لبحثك. جرّب كلمة أخرى أو اختر «جميع القصص».
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered
+        .map((story) => {
+          const isRead = state.readStories.includes(story.id);
+          return `
+            <article class="story-card">
+              <div>
+                <div class="story-thumb-wrap">
+                  ${buildStoryArtSVG(story, state.artVariant)}
+                </div>
+                <div class="story-card-body">
+                  <div class="card-meta-row">
+                    <span class="badge-era">${story.era}</span>
+                    ${isRead ? `<span class="badge-done">✓ تمت القراءة</span>` : ""}
+                  </div>
+                  <h3 class="story-card-title">${story.name}</h3>
+                  <div class="mission-box">
+                    <strong>الرسالة الموكلة:</strong> ${story.mission}
+                  </div>
+                  <p class="story-card-summary">${story.summary}</p>
+                </div>
+              </div>
+              <div class="story-card-footer">
+                <button type="button" class="btn-primary" style="flex:1;" onclick="openStoryReader('${story.id}')">
+                  <span>📖</span>
+                  <span>اقرأ واستمع للقصة</span>
+                </button>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    /* =====================================================================
+       عارض القصة الكامل + الصوت (Web Speech API) + العلامات المهمة
+       ===================================================================== */
+    function stopStorySpeech() {
+      try {
+        if ("speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+        }
+      } catch (e) {}
+      document.getElementById("voiceStatusText").textContent = "تم إيقاف الصوت.";
+    }
+
+    function openStoryReader(storyId) {
+      const story = STORIES_DATA.find((s) => s.id === storyId);
+      if (!story) return;
+      currentStoryId = story.id;
+      stopStorySpeech();
+
+      document.getElementById("readerEraBadge").textContent = story.era;
+      document.getElementById("readerRefBadge").textContent = story.quranRef;
+      document.getElementById("readerStoryTitle").textContent = story.name;
+      document.getElementById("readerMissionText").textContent = story.mission;
+
+      document.getElementById("readerArtFrame").innerHTML = buildStoryArtSVG(story, state.artVariant);
+      document.getElementById("readerArtCaptionText").textContent =
+        `لوحة فنية مستوحاة من قصة ${story.name} • مشهد رقم ${state.artVariant + 1}`;
+
+      const proseEl = document.getElementById("readerProseBody");
+      proseEl.style.fontSize = `${state.storyFontSize}rem`;
+      proseEl.classList.toggle("no-marks", !state.showMarks);
+      proseEl.innerHTML = story.paragraphs.map((p) => `<p>${p}</p>`).join("");
+
+      const toggleMarksBtn = document.getElementById("toggleMarksBtn");
+      toggleMarksBtn.classList.toggle("active", state.showMarks);
+
+      document.getElementById("readerMoralsList").innerHTML = story.lessons
+        .map((l) => `<li>${l}</li>`)
+        .join("");
+
+      document.getElementById("readerModal").classList.add("open");
+    }
+
+    function closeStoryReader() {
+      stopStorySpeech();
+      document.getElementById("readerModal").classList.remove("open");
+    }
+
+    function speakCurrentStory() {
+      const story = STORIES_DATA.find((s) => s.id === currentStoryId);
+      if (!story) return;
+
+      if (!("speechSynthesis" in window)) {
+        showToast("متصفحك لا يدعم القراءة الصوتية التلقائية؛ يمكنك قراءة النص المعلّم أعلاه.");
+        return;
+      }
+
+      try {
+        window.speechSynthesis.cancel();
+        const plainText = story.paragraphs
+          .map((p) => p.replace(/<[^>]+>/g, ""))
+          .join(" . ");
+        const spokenScript = `شرح قصة ${story.name}. الرسالة الموكلة إليه: ${story.mission}. ${plainText}`;
+
+        const utter = new SpeechSynthesisUtterance(spokenScript);
+        utter.lang = "ar-SA";
+        utter.rate = parseFloat(document.getElementById("voiceRateSelect").value) || 1;
+
+        const voices = window.speechSynthesis.getVoices() || [];
+        const arVoice = voices.find((v) => (v.lang || "").toLowerCase().startsWith("ar"));
+        if (arVoice) utter.voice = arVoice;
+
+        utter.onstart = () => {
+          document.getElementById("voiceStatusText").textContent =
+            `جاري شرح قصة ${story.name} صوتياً...`;
+        };
+        utter.onend = () => {
+          document.getElementById("voiceStatusText").textContent =
+            "اكتمل شرح القصة صوتياً.";
+        };
+        utter.onerror = () => {
+          document.getElementById("voiceStatusText").textContent =
+            "قد لا يتوفر صوت عربي مثبت على هذا الجهاز أثناء وضع الأوفلاين، والنص الكامل متاح أمامك.";
+        };
+
+        window.speechSynthesis.speak(utter);
+      } catch (e) {
+        showToast("تعذر تشغيل الصوت على هذا الجهاز.");
+      }
+    }
+
+    /* =====================================================================
+       مسابقة «من سيربح المليون» بأسئلة متجددة لا نهائية ودرجات
+       ===================================================================== */
+    function buildUnlimitedQuestion(stepIdx) {
+      // مولّد أسئلة لا نهائي يركّب أسئلة متنوعة من قصص الأنبياء والرسالات والعبر
+      const templates = [
+        (s) => ({
+          q: `ما هي الرسالة أو المهمة الدعوية الموكلة إلى (${s.name})؟`,
+          correct: s.mission,
+          hint: `تأمل في دعوة ${s.name} وقومه في سورة (${s.quranRef.split("•")[0].trim()}).`,
+          exp: `الرسالة الموكلة إلى ${s.name}: ${s.mission}`
+        }),
+        (s) => ({
+          q: `إلى أي مرحلة أو تصنيف نبوي ينتمي (${s.name}) في هذه المنصة؟`,
+          correct: s.era,
+          hint: `راجع التسلسل التاريخي والنبوي لقصة ${s.name}.`,
+          exp: `ينتمي ${s.name} إلى فئة: (${s.era}).`
+        }),
+        (s) => ({
+          q: `من أبرز الدروس والعبر المستفادة من قصة (${s.name}):`,
+          correct: s.lessons[0],
+          hint: `فكّر في العبرة العملية التي تبرز في نهاية قصة ${s.name}.`,
+          exp: `من أهم عبر القصة: ${s.lessons[0]}`
+        }),
+        (s) => ({
+          q: `أي من المراجع القرآنية التالية وردت فيها إشارات لقصة (${s.name})؟`,
+          correct: s.quranRef,
+          hint: `تذكّر السور المرتبطة بقصة ${s.name}.`,
+          exp: `وردت قصة ${s.name} في: ${s.quranRef}.`
+        })
+      ];
+
+      for (let attempt = 0; attempt < 80; attempt++) {
+        const story = STORIES_DATA[(stepIdx * 3 + attempt * 7) % STORIES_DATA.length];
+        const tpl = templates[(stepIdx + attempt) % templates.length];
+        const built = tpl(story);
+        const sig = `${story.id}|${built.q}`;
+        if (usedQuestionSignatures.has(sig) && usedQuestionSignatures.size < STORIES_DATA.length * templates.length) {
+          continue;
+        }
+        usedQuestionSignatures.add(sig);
+
+        // جمع 3 خيارات خاطئة مختلفة من قصص أخرى
+        const distractors = [];
+        for (let i = 1; i < STORIES_DATA.length && distractors.length < 3; i++) {
+          const other = STORIES_DATA[(STORIES_DATA.indexOf(story) + i * 2 + attempt) % STORIES_DATA.length];
+          const cand = tpl(other).correct;
+          if (cand && cand !== built.correct && !distractors.includes(cand)) {
+            distractors.push(cand);
+          }
+        }
+
+        const choices = [built.correct, ...distractors]
+          .map((val) => ({ text: val, isCorrect: val === built.correct, sortKey: Math.random() }))
+          .sort((a, b) => a.sortKey - b.sortKey);
+
+        return {
+          question: built.q,
+          choices,
+          hint: built.hint,
+          explanation: built.exp
+        };
+      }
+
+      // في حال استنفاد كل التوافيق، نعيد الضبط ونولد سؤالاً جديداً بلا توقف
+      usedQuestionSignatures.clear();
+      return buildUnlimitedQuestion(stepIdx + 1);
+    }
+
+    function renderLadder() {
+      const list = document.getElementById("ladderList");
+      list.innerHTML = MILLIONAIRE_LADDER.map((label, idx) => {
+        const cls =
+          idx === gameStepIndex
+            ? "ladder-step current"
+            : idx < gameStepIndex
+            ? "ladder-step reached"
+            : "ladder-step";
+        return `
+          <li class="${cls}">
+            <span>الدرجة ${idx + 1}</span>
+            <span>${label}</span>
+          </li>
+        `;
+      }).join("");
+    }
+
+    function loadMillionaireQuestion() {
+      questionAnswered = false;
+      currentQuestion = buildUnlimitedQuestion(gameStepIndex);
+
+      document.getElementById("questionLevelBadge").textContent =
+        `الدرجة ${gameStepIndex + 1} من ${MILLIONAIRE_LADDER.length} (${MILLIONAIRE_LADDER[gameStepIndex]})`;
+      document.getElementById("questionPoolCounter").textContent =
+        `تم الإجابة على: ${state.answeredQuestionsCount} سؤال`;
+      document.getElementById("quizCurrentScore").textContent = gameCurrentPoints.toLocaleString("en-US");
+      document.getElementById("questionText").textContent = currentQuestion.question;
+      document.getElementById("questionExplanation").style.display = "none";
+      document.getElementById("nextStepBtn").style.display = "none";
+      document.getElementById("questionStatusHint").textContent =
+        `بالتوفيق يا ${state.userName}! اختر الإجابة الصحيحة.`;
+
+      document.getElementById("lifeline5050Btn").disabled = lifelinesUsed.fifty;
+      document.getElementById("lifelineHintBtn").disabled = lifelinesUsed.hint;
+      document.getElementById("lifelineSkipBtn").disabled = lifelinesUsed.skip;
+
+      const letters = ["أ", "ب", "ج", "د"];
+      const grid = document.getElementById("optionsGrid");
+      grid.innerHTML = currentQuestion.choices
+        .map(
+          (c, i) => `
+          <button type="button" class="option-btn" data-opt-index="${i}" onclick="selectQuizOption(${i})">
+            <span style="color:var(--gold-600); margin-left:0.4rem;">(${letters[i]})</span>
+            <span>${c.text}</span>
+          </button>
+        `
+        )
+        .join("");
+
+      renderLadder();
+    }
+
+    function selectQuizOption(idx) {
+      if (questionAnswered || !currentQuestion) return;
+      questionAnswered = true;
+
+      const chosen = currentQuestion.choices[idx];
+      const buttons = Array.from(document.querySelectorAll("#optionsGrid .option-btn"));
+      buttons.forEach((b) => (b.disabled = true));
+
+      state.answeredQuestionsCount += 1;
+
+      if (chosen.isCorrect) {
+        buttons[idx].classList.add("correct");
+        const stepReward = (gameStepIndex + 1) * 250;
+        gameCurrentPoints += stepReward;
+        if (gameCurrentPoints > state.quizBestScore) {
+          state.quizBestScore = gameCurrentPoints;
+        }
+        document.getElementById("questionStatusHint").textContent =
+          `أحسنت يا ${state.userName}! إجابة صحيحة (+${stepReward} نقطة).`;
+        document.getElementById("nextStepBtn").style.display = "inline-flex";
+      } else {
+        buttons[idx].classList.add("wrong");
+        const rightIdx = currentQuestion.choices.findIndex((c) => c.isCorrect);
+        if (rightIdx >= 0) buttons[rightIdx].classList.add("correct");
+        document.getElementById("questionStatusHint").textContent =
+          "إجابة غير صحيحة؛ اقرأ الشرح بالأسفل ثم تابع بسؤال جديد.";
+        document.getElementById("nextStepBtn").textContent = "سؤال متجدد آخر ←";
+        document.getElementById("nextStepBtn").style.display = "inline-flex";
+      }
+
+      const expBox = document.getElementById("questionExplanation");
+      expBox.style.display = "block";
+      expBox.innerHTML = `<strong>توضيح ومعلومة:</strong> ${currentQuestion.explanation}`;
+
+      saveState();
+    }
+
+    /* =====================================================================
+       أذكار الصباح والمساء
+       ===================================================================== */
+    function renderAdhkar() {
+      const container = document.getElementById("adhkarListContainer");
+      const items = ADHKAR_LIST[currentAdhkarPeriod] || [];
+
+      container.innerHTML = items
+        .map((item) => {
+          const cur = state.adhkarCounts[item.id] || 0;
+          const done = cur >= item.repeat;
+          return `
+            <article class="adhkar-card">
+              <p class="adhkar-text">${item.text}</p>
+              <div class="adhkar-footer">
+                <span style="font-size:0.82rem; color:var(--ink-600); font-weight:700;">
+                  المصدر: ${item.source} • التكرار المطلوب: ${item.repeat}
+                </span>
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                  <span class="badge-done">${done ? "✓ مكتمل" : `العداد: ${cur} / ${item.repeat}`}</span>
+                  <button type="button" class="btn-primary" onclick="incrementAdhkar('${item.id}', ${item.repeat})">
+                    + تسبيح / ذكر
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    function incrementAdhkar(id, target) {
+      const next = (state.adhkarCounts[id] || 0) + 1;
+      state.adhkarCounts[id] = Math.min(next, target);
+      if (state.adhkarCounts[id] === target) {
+        showToast("تم إتمام تكرار هذا الذكر المبارك.");
+      }
+      saveState();
+      renderAdhkar();
+    }
+
+    /* =====================================================================
+       المسبحة المتكاملة
+       ===================================================================== */
+    function playClickTone() {
+      if (!state.soundEnabled) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(560, ctx.currentTime);
+        gain.gain.setValueAtTime(0.06, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.07);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.07);
+      } catch (e) {}
+    }
+
+    function renderTasbih() {
+      const active = TASBIH_ITEMS.find((t) => t.id === state.activeTasbihId) || TASBIH_ITEMS[0];
+      const count = state.tasbihCounts[active.id] || 0;
+
+      document.getElementById("activeDhikrTitle").textContent = active.phrase;
+      document.getElementById("activeDhikrNote").textContent = active.note;
+      document.getElementById("tasbihCountDisplay").textContent = count;
+      document.getElementById("tasbihTargetDisplay").textContent =
+        state.tasbihTarget > 0 ? `من ${state.tasbihTarget}` : "عداد مفتوح";
+      document.getElementById("tasbihRoundsBadge").textContent =
+        `الدورات المكتملة: ${state.tasbihRounds}`;
+
+      document.getElementById("toggleSoundBtn").textContent =
+        state.soundEnabled ? "🔊 الصوت: مفعل" : "🔇 الصوت: متوقف";
+      document.getElementById("toggleVibrateBtn").textContent =
+        state.vibrateEnabled ? "📳 الاهتزاز: مفعل" : "📴 الاهتزاز: متوقف";
+
+      document.querySelectorAll("#targetPresets .chip").forEach((btn) => {
+        btn.classList.toggle("active", Number(btn.dataset.target) === state.tasbihTarget);
+      });
+
+      document.getElementById("dhikrChoicesContainer").innerHTML = TASBIH_ITEMS.map((item) => {
+        const c = state.tasbihCounts[item.id] || 0;
+        return `
+          <button type="button" class="dhikr-choice ${item.id === active.id ? "active" : ""}" onclick="selectTasbihDhikr('${item.id}')">
+            <span style="font-family:var(--font-story); font-size:1.2rem; font-weight:700; color:var(--emerald-900);">${item.phrase}</span>
+            <span class="badge-done">${c}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function selectTasbihDhikr(id) {
+      state.activeTasbihId = id;
+      saveState();
+      renderTasbih();
+    }
+
+    /* =====================================================================
+       تفعيل التبويبات والأحداث وتسجيل Service Worker عند توفر HTTP/HTTPS
+       ===================================================================== */
+    function initTabs() {
+      document.querySelectorAll(".nav-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const tab = btn.dataset.tab;
+          document.querySelectorAll(".nav-btn").forEach((b) => b.classList.remove("active"));
+          document.querySelectorAll(".tab-panel").forEach((p) => p.classList.remove("active"));
+          btn.classList.add("active");
+          document.getElementById(`tab-${tab}`).classList.add("active");
+        });
+      });
+    }
+
+    function registerOfflineServiceWorker() {
+      if (!("serviceWorker" in navigator)) return;
+      if (window.location.protocol !== "http:" && window.location.protocol !== "https:") return;
+      try {
+        const swCode = `
+          const CACHE_NAME = 'manarat-anbiya-v1';
+          self.addEventListener('install', (event) => {
+            event.waitUntil(
+              caches.open(CACHE_NAME).then((cache) => cache.addAll([self.location.href]))
+            );
+          });
+          self.addEventListener('fetch', (event) => {
+            event.respondWith(
+              caches.match(event.request).then((cached) => cached || fetch(event.request))
+            );
+          });
+        `;
+        const blob = new Blob([swCode], { type: "application/javascript" });
+        const swUrl = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl).catch(() => {});
+      } catch (e) {}
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initTabs();
+      refreshHeaderStats();
+      renderStoriesGrid();
+      renderAdhkar();
+      renderTasbih();
+      loadMillionaireQuestion();
+      registerOfflineServiceWorker();
+
+      // حفظ الاسم المخصص
+      document.getElementById("saveUserNameBtn").addEventListener("click", () => {
+        const val = (document.getElementById("userNameInput").value || "").trim();
+        if (!val) {
+          showToast("يرجى إدخال اسم صحيح أولاً.");
+          return;
+        }
+        state.userName = val;
+        saveState();
+        showToast(`تم حفظ الاسم: ${val}`);
+      });
+
+      document.getElementById("focusNameBtn").addEventListener("click", () => {
+        const inp = document.getElementById("userNameInput");
+        inp.scrollIntoView({ behavior: "smooth", block: "center" });
+        inp.focus();
+      });
+
+      // البحث والفلاتر في القصص
+      document.getElementById("storySearchInput").addEventListener("input", renderStoriesGrid);
+      document.querySelectorAll("#eraFilterChips .chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          document.querySelectorAll("#eraFilterChips .chip").forEach((c) => c.classList.remove("active"));
+          chip.classList.add("active");
+          currentEra = chip.dataset.era;
+          renderStoriesGrid();
+        });
+      });
+
+      // أزرار نافذة القصة
+      document.getElementById("closeReaderBtn").addEventListener("click", closeStoryReader);
+      document.getElementById("fontLargerBtn").addEventListener("click", () => {
+        state.storyFontSize = Math.min(1.75, Number((state.storyFontSize + 0.08).toFixed(2)));
+        document.getElementById("readerProseBody").style.fontSize = `${state.storyFontSize}rem`;
+        saveState();
+      });
+      document.getElementById("fontSmallerBtn").addEventListener("click", () => {
+        state.storyFontSize = Math.max(1.05, Number((state.storyFontSize - 0.08).toFixed(2)));
+        document.getElementById("readerProseBody").style.fontSize = `${state.storyFontSize}rem`;
+        saveState();
+      });
+      document.getElementById("toggleMarksBtn").addEventListener("click", () => {
+        state.showMarks = !state.showMarks;
+        document.getElementById("readerProseBody").classList.toggle("no-marks", !state.showMarks);
+        document.getElementById("toggleMarksBtn").classList.toggle("active", state.showMarks);
+        saveState();
+      });
+      document.getElementById("cycleArtSceneBtn").addEventListener("click", () => {
+        state.artVariant = (state.artVariant + 1) % 3;
+        if (currentStoryId) openStoryReader(currentStoryId);
+        renderStoriesGrid();
+        saveState();
+      });
+
+      document.getElementById("playStoryVoiceBtn").addEventListener("click", speakCurrentStory);
+      document.getElementById("pauseResumeVoiceBtn").addEventListener("click", () => {
+        if (!("speechSynthesis" in window)) return;
+        if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+          window.speechSynthesis.pause();
+          document.getElementById("voiceStatusText").textContent = "تم إيقاف القراءة الصوتية مؤقتاً.";
+        } else if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+          document.getElementById("voiceStatusText").textContent = "تم استئناف القراءة الصوتية.";
+        }
+      });
+      document.getElementById("stopStoryVoiceBtn").addEventListener("click", stopStorySpeech);
+
+      document.getElementById("completeStoryModalBtn").addEventListener("click", () => {
+        if (currentStoryId && !state.readStories.includes(currentStoryId)) {
+          state.readStories.push(currentStoryId);
+          saveState();
+          renderStoriesGrid();
+        }
+        showToast("تم تسجيل إتمام قراءة القصة بنجاح.");
+      });
+
+      document.getElementById("prevStoryModalBtn").addEventListener("click", () => {
+        const idx = STORIES_DATA.findIndex((s) => s.id === currentStoryId);
+        const prev = STORIES_DATA[(idx - 1 + STORIES_DATA.length) % STORIES_DATA.length];
+        openStoryReader(prev.id);
+      });
+
+      document.getElementById("nextStoryModalBtn").addEventListener("click", () => {
+        const idx = STORIES_DATA.findIndex((s) => s.id === currentStoryId);
+        const next = STORIES_DATA[(idx + 1) % STORIES_DATA.length];
+        openStoryReader(next.id);
+      });
+
+      // أحداث «من سيربح المليون» والأسئلة اللا نهائية
+      document.getElementById("nextStepBtn").addEventListener("click", () => {
+        gameStepIndex = (gameStepIndex + 1) % MILLIONAIRE_LADDER.length;
+        document.getElementById("nextStepBtn").textContent = "الانتقال للدرجة التالية ←";
+        loadMillionaireQuestion();
+      });
+
+      document.getElementById("nextUnlimitedBtn").addEventListener("click", () => {
+        loadMillionaireQuestion();
+        showToast("تم توليد سؤال جديد من بنك الأسئلة المتجدد.");
+      });
+
+      document.getElementById("restartGameBtn").addEventListener("click", () => {
+        gameStepIndex = 0;
+        gameCurrentPoints = 0;
+        lifelinesUsed = { fifty: false, hint: false, skip: false };
+        document.getElementById("nextStepBtn").textContent = "الانتقال للدرجة التالية ←";
+        loadMillionaireQuestion();
+        showToast("بدأت جولة جديدة من الدرجة الأولى.");
+      });
+
+      document.getElementById("lifeline5050Btn").addEventListener("click", () => {
+        if (lifelinesUsed.fifty || questionAnswered || !currentQuestion) return;
+        lifelinesUsed.fifty = true;
+        const buttons = Array.from(document.querySelectorAll("#optionsGrid .option-btn"));
+        const wrongIndices = currentQuestion.choices
+          .map((c, idx) => (!c.isCorrect ? idx : -1))
+          .filter((idx) => idx >= 0)
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 2);
+        wrongIndices.forEach((i) => buttons[i].classList.add("eliminated"));
+        document.getElementById("lifeline5050Btn").disabled = true;
+        showToast("تم حذف إجابتين خاطئتين.");
+      });
+
+      document.getElementById("lifelineHintBtn").addEventListener("click", () => {
+        if (lifelinesUsed.hint || !currentQuestion) return;
+        lifelinesUsed.hint = true;
+        const expBox = document.getElementById("questionExplanation");
+        expBox.style.display = "block";
+        expBox.innerHTML = `<strong>💡 تلميح:</strong> ${currentQuestion.hint}`;
+        document.getElementById("lifelineHintBtn").disabled = true;
+      });
+
+      document.getElementById("lifelineSkipBtn").addEventListener("click", () => {
+        if (lifelinesUsed.skip) return;
+        lifelinesUsed.skip = true;
+        document.getElementById("lifelineSkipBtn").disabled = true;
+        loadMillionaireQuestion();
+        showToast("تم استبدال السؤال بسؤال آخر.");
+      });
+
+      // أحداث الأذكار
+      document.getElementById("btnMorningPeriod").addEventListener("click", () => {
+        currentAdhkarPeriod = "morning";
+        document.getElementById("btnMorningPeriod").classList.add("active");
+        document.getElementById("btnEveningPeriod").classList.remove("active");
+        renderAdhkar();
+      });
+
+      document.getElementById("btnEveningPeriod").addEventListener("click", () => {
+        currentAdhkarPeriod = "evening";
+        document.getElementById("btnEveningPeriod").classList.add("active");
+        document.getElementById("btnMorningPeriod").classList.remove("active");
+        renderAdhkar();
+      });
+
+      document.getElementById("resetAdhkarBtn").addEventListener("click", () => {
+        (ADHKAR_LIST[currentAdhkarPeriod] || []).forEach((item) => {
+          state.adhkarCounts[item.id] = 0;
+        });
+        saveState();
+        renderAdhkar();
+        showToast("تم تصفير عدادات هذه الفترة.");
+      });
+
+      document.getElementById("speakAdhkarBtn").addEventListener("click", () => {
+        const first = (ADHKAR_LIST[currentAdhkarPeriod] || [])[0];
+        if (!first || !("speechSynthesis" in window)) return;
+        try {
+          window.speechSynthesis.cancel();
+          const u = new SpeechSynthesisUtterance(first.text);
+          u.lang = "ar-SA";
+          window.speechSynthesis.speak(u);
+        } catch (e) {}
+      });
+
+      document.getElementById("stopAdhkarVoiceBtn").addEventListener("click", stopStorySpeech);
+
+      // أحداث المسبحة المتكاملة
+      document.querySelectorAll("#targetPresets .chip").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.tasbihTarget = Number(btn.dataset.target) || 0;
+          saveState();
+          renderTasbih();
+        });
+      });
+
+      document.getElementById("tasbihTapBtn").addEventListener("click", () => {
+        const activeId = state.activeTasbihId;
+        const nextCount = (state.tasbihCounts[activeId] || 0) + 1;
+        state.tasbihCounts[activeId] = nextCount;
+
+        if (state.tasbihTarget > 0 && nextCount % state.tasbihTarget === 0) {
+          state.tasbihRounds += 1;
+          showToast(`ما شاء الله! أتممت دورة (${state.tasbihTarget}) تسبيحات.`);
+        }
+
+        playClickTone();
+        if (state.vibrateEnabled && navigator.vibrate) {
+          try { navigator.vibrate(18); } catch (e) {}
+        }
+
+        saveState();
+        renderTasbih();
+      });
+
+      document.getElementById("resetTasbihBtn").addEventListener("click", () => {
+        state.tasbihCounts[state.activeTasbihId] = 0;
+        saveState();
+        renderTasbih();
+        showToast("تم تصفير عداد التسبيح الحالي.");
+      });
+
+      document.getElementById("toggleSoundBtn").addEventListener("click", () => {
+        state.soundEnabled = !state.soundEnabled;
+        saveState();
+        renderTasbih();
+      });
+
+      document.getElementById("toggleVibrateBtn").addEventListener("click", () => {
+        state.vibrateEnabled = !state.vibrateEnabled;
+        saveState();
+        renderTasbih();
+      });
+    });
+  </script>
+</body>
+</html>
